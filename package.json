@@ -1,0 +1,32 @@
+{
+  "name": "f26pro97davuluri",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Express web application using Pug templates",
+  "homepage": "https://github.com/Teju5641/f26pro97davuluri#readme",
+  "bugs": {
+    "url": "https://github.com/Teju5641/f26pro97davuluri/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Teju5641/f26pro97davuluri.git"
+  },
+  "license": "ISC",
+  "author": "Lakshmi Tejaswini Davuluri",
+  "type": "commonjs",
+  "main": "app.js",
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "^4.4.3",
+    "dotenv": "^18.0.9",
+    "express": "^5.3.0",
+    "http-errors": "^2.0.1",
+    "mongodb": "^7.8.0",
+    "mongoose": "^9.12.0",
+    "morgan": "^1.12.1",
+    "pug": "^3.0.4"
+  }
+}
