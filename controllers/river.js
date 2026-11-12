@@ -21,9 +21,27 @@ exports.river_detail = function(req, res) {
 };
 
 // Create a River using POST
-exports.river_create_post = function(req, res) {
-    res.send('NOT IMPLEMENTED: River create POST');
-};
+
+ // Create a River using POST
+ exports.river_create_post = async function(req, res) {
+     console.log(req.body);
+
+     let document = new River();
+
+     document.river_name = req.body.river_name;
+     document.country = req.body.country;
+     document.length_km = req.body.length_km;
+
+     try {
+         let result = await document.save();
+         res.send(result);
+     }
+     catch(err) {
+         res.status(500);
+         res.send({ error: err.message });
+     }
+ };
+
 
 // Delete a River
 exports.river_delete = function(req, res) {
