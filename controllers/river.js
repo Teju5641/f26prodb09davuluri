@@ -1,9 +1,19 @@
 var River = require('../models/river');
 
 // List of all Rivers
-exports.river_list = function(req, res) {
-    res.send('NOT IMPLEMENTED: River list');
+
+// List of all Rivers
+exports.river_list = async function(req, res) {
+    try {
+        const theRivers = await River.find();
+        res.send(theRivers);
+    }
+    catch(err) {
+        res.status(500);
+        res.send({ error: err.message });
+    }
 };
+
 
 // Details of a specific River
 exports.river_detail = function(req, res) {
