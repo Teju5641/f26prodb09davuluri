@@ -1,18 +1,14 @@
+
 extends layout
 
 block content
   h1= title
 
-  -
-    let results = [
-      { river_name: "Nile", country: "Egypt", length_km: 6650 },
-      { river_name: "Amazon", country: "Brazil", length_km: 6400 },
-      { river_name: "Mississippi", country: "United States", length_km: 3730 }
-    ];
+  - let items = results
 
   div.container-fluid
     div.row
-      each item, index in results
+      each item, index in items
         div.col-sm-2(onclick=`buy(${index})`)
           p River: #{item.river_name}
           p Country: #{item.country}
@@ -20,5 +16,5 @@ block content
 
   script.
     function buy(index) {
-      alert(`You purchased item ${index}`);
+      alert(`You selected river ${index}`);
     }

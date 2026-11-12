@@ -34,3 +34,22 @@ exports.river_delete = function(req, res) {
 exports.river_update_put = function(req, res) {
     res.send('NOT IMPLEMENTED: River update PUT ' + req.params.id);
 };
+
+
+// VIEWS
+
+// Handle a show all view
+exports.river_view_all_Page = async function(req, res) {
+    try {
+        const theRivers = await River.find();
+
+        res.render('rivers', {
+            title: 'River Search Results',
+            results: theRivers
+        });
+    }
+    catch(err) {
+        res.status(500);
+        res.send({ error: err.message });
+    }
+};
