@@ -188,3 +188,20 @@ exports.river_update_Page = async function(req, res) {
         res.status(500).send({ error: err.message });
     }
 };
+
+ // Handle building the view for deleting a River
+exports.river_delete_Page = async function(req, res) {
+    console.log("Delete view for river " + req.query.id);
+
+    try {
+        let result = await River.findById(req.query.id);
+
+        res.render('riverdelete', {
+            title: 'River Delete',
+            toShow: result
+        });
+    }
+    catch(err) {
+        res.status(500).send({ error: err.message });
+    }
+};

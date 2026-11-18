@@ -16,5 +16,8 @@ router.get('/create', river_controllers.river_create_Page);
  // GET update page for a River
 router.get('/update', river_controllers.river_update_Page);
 
+ // GET delete page for a River
+router.get('/delete', river_controllers.river_delete_Page);
+
 
 module.exports = router;

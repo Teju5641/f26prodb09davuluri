@@ -1,0 +1,75 @@
+
+extends layout
+
+block content
+  h1= title
+
+  if toShow == null
+    h2 No River Found
+    p There is no river with this ID.
+    a.btn.btn-secondary(href='/rivers') Back to Rivers
+  else
+    - let riverid = toShow._id
+    - let rivername = toShow.river_name
+    - let rivercountry = toShow.country
+    - let riverlength = toShow.length_km
+    - let actionid = "/resource/rivers/" + riverid
+
+    div.row.mb-3
+      div.riverAttr.mr-3 River ID:
+      div #{riverid}
+
+    form#DeleteRiverForm(action=actionid)
+      div.form-group
+        label.riverAttr(for='river_name') River Name
+        input#river_name.form-control(type='text', value=rivername, readonly)
+
+      div.form-group
+        label.riverAttr(for='country') Country
+        input#country.form-control(type='text', value=rivercountry, readonly)
+
+      div.form-group
+        label.riverAttr(for='length_km') Length (km)
+        input#length_km.form-control(type='number', value=riverlength, readonly)
+
+      button#deleteButton.btn.btn-danger.mr-2(type='button') Delete River
+      button#cancelButton.btn.btn-secondary(type='button') Cancel
+
+    p#deleteMessage.mt-3
+
+    script.
+      document.getElementById('cancelButton').addEventListener('click', function() {
+        window.location.href = '/rivers';
+      });
+
+      document.getElementById('deleteButton').addEventListener('click', async function() {
+        const form = document.getElementById('DeleteRiverForm');
+        const message = document.getElementById('deleteMessage');
+        const button = document.getElementById('deleteButton');
+
+        if (!confirm('Are you sure you want to delete this river?')) {
+          return;
+        }
+
+        try {
+          const response = await fetch(form.action, {
+            method: 'DELETE'
+          });
+
+          if (!response.ok) {
+            throw new Error('River could not be deleted');
+          }
+
+          const river = await response.json();
+
+          if (!river) {
+            throw new Error('River was not found');
+          }
+
+          message.textContent = 'River Deleted Successfully! ' + river.river_name;
+          button.disabled = true;
+        }
+        catch(err) {
+          message.textContent = err.message;
+        }
+      });
