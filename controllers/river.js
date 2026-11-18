@@ -149,3 +149,17 @@ exports.river_view_one_Page = async function(req, res) {
         res.status(500).send({ error: err.message });
     }
 };
+
+ // Handle building the view for creating a River
+exports.river_create_Page = function(req, res) {
+    console.log("create view");
+
+    try {
+        res.render('rivercreate', {
+            title: 'River Create'
+        });
+    }
+    catch(err) {
+        res.status(500).send({ error: err.message });
+    }
+};

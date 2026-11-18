@@ -1,0 +1,71 @@
+
+extends layout
+
+block content
+  h1= title
+
+  form#RiverForm(action='/resource/rivers', method='POST')
+    div.form-group
+      label.riverAttr(for='river_name') River Name
+      input#river_name.form-control(type='text', name='river_name', required)
+
+    div.form-group
+      label.riverAttr(for='country') Country
+      input#country.form-control(type='text', name='country', required)
+
+    div.form-group
+      label.riverAttr(for='length_km') Length (km)
+      input#length_km.form-control(type='number', name='length_km', min='1', required)
+
+    button.btn.btn-primary(type='submit') Create River
+
+  p#formMessage
+
+  div#createdRiver.mt-3(style='display: none;')
+    h2 River Created Successfully
+    p
+      strong River ID:
+      span#createdId
+    p
+      strong River Name:
+      span#createdName
+    p
+      strong Country:
+      span#createdCountry
+    p
+      strong Length (km):
+      span#createdLength
+
+  script.
+    document.getElementById('RiverForm').addEventListener('submit', async function(event) {
+      event.preventDefault();
+
+      const message = document.getElementById('formMessage');
+      const created = document.getElementById('createdRiver');
+
+      message.textContent = '';
+      created.style.display = 'none';
+
+      try {
+        const response = await fetch(event.target.action, {
+          method: 'POST',
+          body: new URLSearchParams(new FormData(event.target))
+        });
+
+        if (!response.ok) {
+          throw new Error('River could not be created');
+        }
+
+        const river = await response.json();
+
+        document.getElementById('createdId').textContent = ' ' + river._id;
+        document.getElementById('createdName').textContent = ' ' + river.river_name;
+        document.getElementById('createdCountry').textContent = ' ' + river.country;
+        document.getElementById('createdLength').textContent = ' ' + river.length_km;
+
+        created.style.display = 'block';
+      }
+      catch(err) {
+        message.textContent = err.message;
+      }
+    });

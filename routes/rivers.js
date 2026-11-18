@@ -10,4 +10,8 @@ router.get('/', river_controllers.river_view_all_Page);
 // GET detail page for one river
 router.get('/detail', river_controllers.river_view_one_Page);
 
+ // GET create River page
+router.get('/create', river_controllers.river_create_Page);
+
+
 module.exports = router;
