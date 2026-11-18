@@ -1,7 +1,7 @@
 
 var River = require('../models/river');
 
-// List of all Rivers
+
 exports.river_list = async function(req, res) {
     try {
         const theRivers = await River.find();
@@ -14,7 +14,6 @@ exports.river_list = async function(req, res) {
 };
 
 
-// Details of a specific River
 exports.river_detail = async function(req, res) {
     console.log("detail " + req.params.id);
 
@@ -36,7 +35,6 @@ exports.river_detail = async function(req, res) {
 };
 
 
-// Create a River using POST
 exports.river_create_post = async function(req, res) {
     console.log(req.body);
 
@@ -57,7 +55,6 @@ exports.river_create_post = async function(req, res) {
 };
 
 
-// Delete a River
 exports.river_delete = async function(req, res) {
     console.log("delete " + req.params.id);
 
@@ -79,8 +76,6 @@ exports.river_delete = async function(req, res) {
     }
 };
 
-
-// Update a River using PUT
 exports.river_update_put = async function(req, res) {
     console.log("update on id " + req.params.id);
     console.log(req.body);
@@ -94,7 +89,7 @@ exports.river_update_put = async function(req, res) {
             });
         }
 
-        // Update properties
+        
         if(req.body.river_name)
             toUpdate.river_name = req.body.river_name;
 
@@ -116,9 +111,6 @@ exports.river_update_put = async function(req, res) {
 };
 
 
-// VIEWS
-
-// Handle a show all view
 exports.river_view_all_Page = async function(req, res) {
     try {
         const theRivers = await River.find();
@@ -131,5 +123,29 @@ exports.river_view_all_Page = async function(req, res) {
     catch(err) {
         res.status(500);
         res.send({ error: err.message });
+    }
+};
+
+ // Handle a show one River view with id from query
+exports.river_view_one_Page = async function(req, res) {
+    console.log("single view for id " + req.query.id);
+
+    try {
+        let result = await River.findById(req.query.id);
+
+        if (!result) {
+            return res.status(404).render('riverdetail', {
+                title: 'River Not Found',
+                toShow: null
+            });
+        }
+
+        res.render('riverdetail', {
+            title: 'River Detail',
+            toShow: result
+        });
+    }
+    catch(err) {
+        res.status(500).send({ error: err.message });
     }
 };

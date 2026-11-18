@@ -1,0 +1,31 @@
+
+extends layout
+
+block content
+  h1= title
+
+  if toShow == null
+    h2 No River Found
+    p There is no river with this ID.
+  else
+    - let riverid = toShow._id
+    - let rivername = toShow.river_name
+    - let rivercountry = toShow.country
+    - let riverlength = toShow.length_km
+
+    div
+      div.row.mb-2
+        div.riverAttr.mr-3 River ID:
+        div #{riverid}
+
+      div.row.mb-2
+        div.riverAttr.mr-3 River Name:
+        div #{rivername}
+
+      div.row.mb-2
+        div.riverAttr.mr-3 Country:
+        div #{rivercountry}
+
+      div.row.mb-2
+        div.riverAttr.mr-3 Length (km):
+        div #{riverlength}
