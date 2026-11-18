@@ -163,3 +163,28 @@ exports.river_create_Page = function(req, res) {
         res.status(500).send({ error: err.message });
     }
 };
+
+
+ // Handle building the view for updating a River
+exports.river_update_Page = async function(req, res) {
+    console.log("update view for river " + req.query.id);
+
+    try {
+        let result = await River.findById(req.query.id);
+
+        if (!result) {
+            return res.status(404).render('riverupdate', {
+                title: 'River Not Found',
+                toShow: null
+            });
+        }
+
+        res.render('riverupdate', {
+            title: 'River Update',
+            toShow: result
+        });
+    }
+    catch(err) {
+        res.status(500).send({ error: err.message });
+    }
+};

@@ -1,0 +1,65 @@
+
+extends layout
+
+block content
+  h1= title
+
+  if toShow == null
+    h2 No River Found
+    p There is no river with this ID.
+  else
+    - let riverid = toShow._id
+    - let rivername = toShow.river_name
+    - let rivercountry = toShow.country
+    - let riverlength = toShow.length_km
+    - let actionid = "/resource/rivers/" + riverid
+
+    div.row.mb-3
+      div.riverAttr.mr-3 River ID:
+      div #{riverid}
+
+    form#RiverForm(action=actionid, method='PUT')
+      div.form-group
+        label.riverAttr(for='river_name') River Name
+        input#river_name.form-control(type='text', name='river_name', value=rivername, required)
+
+      div.form-group
+        label.riverAttr(for='country') Country
+        input#country.form-control(type='text', name='country', value=rivercountry, required)
+
+      div.form-group
+        label.riverAttr(for='length_km') Length (km)
+        input#length_km.form-control(type='number', name='length_km', value=riverlength, min='1', required)
+
+      button.btn.btn-primary(type='submit') Update River
+
+    p#updateMessage.mt-3
+
+    script.
+      document.getElementById('RiverForm').addEventListener('submit', async function(event) {
+        event.preventDefault();
+
+        const message = document.getElementById('updateMessage');
+        message.textContent = '';
+
+        try {
+          const response = await fetch(event.target.action, {
+            method: 'PUT',
+            body: new URLSearchParams(new FormData(event.target))
+          });
+
+          if (!response.ok) {
+            throw new Error('River could not be updated');
+          }
+
+          const river = await response.json();
+
+          message.textContent = 'River Updated Successfully! ' +
+            river.river_name + ' - ' +
+            river.country + ' - ' +
+            river.length_km + ' km';
+        }
+        catch(err) {
+          message.textContent = err.message;
+        }
+      });
