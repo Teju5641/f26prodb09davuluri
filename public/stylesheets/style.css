@@ -1,15 +1,102 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+
+/* Bonus 1 - Improved River Detail Page */
+
+.river-page {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 30px;
+    background-color: #edf4fc;
+    border-radius: 15px;
 }
 
-a {
-  color: #00B7FF;
+.river-page-header {
+    margin-bottom: 25px;
 }
 
-.riverAttr {
-    background-color: aquamarine;
-    width: 120px;
-    padding: 5px;
+.river-page-header h1 {
+    color: #172b4d;
     font-weight: bold;
+}
+
+.river-eyebrow {
+    color: #2563a0;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.river-subtitle {
+    color: #64748b;
+    font-size: 15px;
+}
+
+.river-card {
+    background-color: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.river-card-top {
+    margin-bottom: 25px;
+}
+
+.river-card-top h2 {
+    color: #172b4d;
+    font-weight: bold;
+    margin-top: 12px;
+}
+
+.river-badge {
+    background-color: #dbeafe;
+    color: #1d5fab;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.river-info {
+    margin-bottom: 25px;
+}
+
+.river-info-row {
+    padding: 15px 0;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.river-info-row dt {
+    color: #64748b;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.river-info-row dd {
+    color: #172b4d;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 0;
+    overflow-wrap: anywhere;
+}
+
+.river-card .btn-primary {
+    background-color: #1d5fab;
+    border-color: #1d5fab;
+    padding: 10px 20px;
+    border-radius: 8px;
+}
+
+.river-card .btn-primary:hover {
+    background-color: #174987;
+}
+
+@media (max-width: 600px) {
+    .river-page {
+        padding: 15px;
+        margin: 15px auto;
+    }
+
+    .river-card {
+        padding: 20px;
+    }
 }

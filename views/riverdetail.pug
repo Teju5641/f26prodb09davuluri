@@ -2,30 +2,40 @@
 extends layout
 
 block content
-  h1= title
+  div.river-page
+    div.river-page-header
+      p.river-eyebrow RIVER COLLECTION
+      h1= title
+      p.river-subtitle View river information and details.
 
-  if toShow == null
-    h2 No River Found
-    p There is no river with this ID.
-  else
-    - let riverid = toShow._id
-    - let rivername = toShow.river_name
-    - let rivercountry = toShow.country
-    - let riverlength = toShow.length_km
+    if toShow == null
+      div.river-card
+        h2 River Not Found
+        p There is no river with this ID.
+        a.btn.btn-outline-secondary(href='/rivers') Back to Rivers
 
-    div
-      div.row.mb-2
-        div.riverAttr.mr-3 River ID:
-        div #{riverid}
+    else
+      div.river-card
+        div.river-card-top
+          span.river-badge RIVER PROFILE
+          h2= toShow.river_name
+          p.river-subtitle River information from MongoDB
 
-      div.row.mb-2
-        div.riverAttr.mr-3 River Name:
-        div #{rivername}
+        dl.river-info
+          div.river-info-row
+            dt River ID
+            dd= toShow._id
 
-      div.row.mb-2
-        div.riverAttr.mr-3 Country:
-        div #{rivercountry}
+          div.river-info-row
+            dt River Name
+            dd= toShow.river_name
 
-      div.row.mb-2
-        div.riverAttr.mr-3 Length (km):
-        div #{riverlength}
+          div.river-info-row
+            dt Country
+            dd= toShow.country
+
+          div.river-info-row
+            dt Length (km)
+            dd= toShow.length_km
+
+        a.btn.btn-primary(href='/rivers') Back to Rivers
