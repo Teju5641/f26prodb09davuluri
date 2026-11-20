@@ -1,18 +1,14 @@
 extends layout
 
 block content
-  h1= title
-  - let items = results;
-  div(class="container-fluid")
-    div(class="row m-1")
-      each item in items
-        - let destination = `/rivers/update?id=${item._id}`
-        div(class="row-sm-2 m-1")
-          | #{item.river_name} (#{item.country}) - #{item.length_km} km
-          button.btn(class="btn-primary ml-1", onclick=`dispatch('${destination}')`) Update
+  .container-fluid.mt-4.px-4
+    h1= title
+    - let items = results;
 
-  script.
-    function dispatch(path) {
-      window.location.href = path;
-    }
-    }
+    .row
+      each item in items
+        .col-md-4.mb-3
+          p River: #{item.river_name}
+          p Country: #{item.country}
+          p Length: #{item.length_km} km
+          a.btn.btn-primary(href='/rivers/update?id=' + item._id) Update
