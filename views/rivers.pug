@@ -1,20 +1,18 @@
-
 extends layout
 
 block content
   h1= title
-
-  - let items = results
-
-  div.container-fluid
-    div.row
-      each item, index in items
-        div.col-sm-2(onclick=`buy(${index})`)
-          p River: #{item.river_name}
-          p Country: #{item.country}
-          p Length: #{item.length_km} km
+  - let items = results;
+  div(class="container-fluid")
+    div(class="row m-1")
+      each item in items
+        - let destination = `/rivers/update?id=${item._id}`
+        div(class="row-sm-2 m-1")
+          | #{item.river_name} (#{item.country}) - #{item.length_km} km
+          button.btn(class="btn-primary ml-1", onclick=`dispatch('${destination}')`) Update
 
   script.
-    function buy(index) {
-      alert(`You selected river ${index}`);
+    function dispatch(path) {
+      window.location.href = path;
+    }
     }
